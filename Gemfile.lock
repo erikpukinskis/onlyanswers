@@ -76,6 +76,8 @@ DEPENDENCIES
   do_postgres
   haml
   heroku
+  rest-client
   shotgun
   sinatra
   sinatra-authentication
+  yajl-ruby

@@ -1,22 +1,53 @@
-#top_bar {
-  padding: 5px;
-  background-color: #EEE;  
+body {
+  font-family: sans-serif;
+  background-color: #FFDA9E;
+  color: #543401;
+}
+
+.page {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.home ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home li {
   margin-bottom: 1em;
 }
 
-#title {
+.question {
+  margin-top: 2em;
   font-weight: bold;
 }
 
-#account_links {
-  position: absolute;
-  right: 10px;
-  display: inline-block;
-  list-style: none;
-  margin: 0;
+.intro {
 }
 
-#account_links li {
-  display: inline-block;
-  padding-right: 10px;
+a {
+  color: #555;
+}
+
+.byline {
+  margin-top: 0;
+  font-weight: bold;
+}
+
+h1 a {
+  text-decoration: none;
+}
+
+h1, h1 a {
+  color: #EB970F;
+}
+
+a {
+  color: #7A4E07;
+}
+
+h1 a:hover {
+  text-decoration: underline;
 }
