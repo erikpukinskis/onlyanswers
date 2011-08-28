@@ -84,16 +84,16 @@ __END__
     - @interviews.each do |key, slug, title, author|
       %li
         %a{:href => "/#{key}/#{slug}"}= title
-        (#{user_url author})
 
 @@ interview
 .page
   %h1
     %a{:href => @url}= @title
-  .byline
-    Answers by
+  .intro
+    = CGI.unescapeHTML(@intro)
+    \-
     = user_url @author
-  .intro= CGI.unescapeHTML(@intro)
+
   - @answers.each do |answer|
     %p.question
       = answer[:question]
