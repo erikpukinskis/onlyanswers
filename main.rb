@@ -90,7 +90,7 @@ __END__
   %h1
     %a{:href => @url}= @title
   .intro
-    = CGI.unescapeHTML(@intro)
+    = CGI.unescapeHTML(@intro || "")
     \-
     = user_url @author
 
