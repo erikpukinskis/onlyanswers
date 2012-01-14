@@ -111,7 +111,7 @@ h1 a:hover {
 
 @media screen and (max-width: 600px) {
   .inner {
-    padding: 0 15px 15px 30px;
+    padding: 0 10px 10px 30px;
   }
 
   .sidebar {
