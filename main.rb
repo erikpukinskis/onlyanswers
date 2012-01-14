@@ -4,6 +4,8 @@ require 'haml'
 require 'rest-client'
 require 'yajl'
 require 'cgi'
+require 'active_support/lazy_load_hooks'
+require 'active_support/core_ext/string'
 
 use Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'] || 'This is a secret key that no one will guess~'
 
@@ -14,7 +16,7 @@ get '/' do
   parser = Yajl::Parser.new
   hash = parser.parse(json)
   @interviews = hash["data"]["children"].reject do |hash|
-    hash["data"]["title"].include? "AMA Request"
+    hash["data"]["title"].include? "equest"
   end.map do |hash|
     data = hash["data"]
     parts = data["permalink"].split("/")
@@ -64,6 +66,10 @@ def user_url(user)
   "<a href=\"http://www.reddit.com/user/#{user}\">#{user}</a>"
 end
 
+def clean_title(title)
+  title.gsub(/I?AMA?[Ai]/i, '').strip.gsub(/^I? ?am an? /i, '').strip.gsub(/[.! ]*$/, '')
+end
+
 
 __END__
 
@@ -72,31 +78,56 @@ __END__
 !!!
 %html
   %head
+    :erb
+      <link href='http://fonts.googleapis.com/css?family=Inika:400,700' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Magra' rel='stylesheet' type='text/css'>
+
     %title hello!
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/base.css'}
   %body
-    = yield
+    .page
+      .content
+        .inner= yield
+      .sidebar
+        .inner
+          %p
+            %strong Only Answers
+            is a readable noise-free way to read interviews from <a href="http://reddit.com">Reddit</a>'s
+            <a href="http://www.reddit.com/r/iama/">IAmA</a> community.
+
+          %p
+            For questions, comments, and DMCA takedown requests email 
+            <a href="mailto:onlytheanswers@gmail.com">onlytheanswers@gmail.com</a>.
+          
+          %p
+            <a href="http://snowedin.net">Erik</a> built Only Answers and provides it 
+            ad-free! If you would like to help pay for its hosting, please
+            consider <a href="https://www.wepay.com/x1j7o9d">donating a few dollars</a>!
+
+
+          %p
+            If you want to grow a vegetable garden, try my other site, 
+            <a href="http://sproutrobot.net">SproutRobot</a>!
 
 @@ index
-.home.page
-  %h1 Only Answers
+.home
+  %h1 I am a...
   %ul
     - @interviews.each do |key, slug, title, author|
       %li
-        %a{:href => "/#{key}/#{slug}"}= title
+        %a{:href => "/#{key}/#{slug}"}= clean_title title
 
 @@ interview
-.page
-  %h1
-    %a{:href => @url}= @title
-  .intro
-    = CGI.unescapeHTML(@intro || "")
-    \-
-    = user_url @author
+%h1
+  %a{:href => @url}= @title
+.intro
+  = CGI.unescapeHTML(@intro || "")
+  \-
+  = user_url @author
 
-  - @answers.each do |answer|
-    %p.question
-      = answer[:question]
-      \-
-      = user_url(answer[:asker])
-    %p.answer= answer[:answer]
+- @answers.each do |answer|
+  %p.question
+    = answer[:question]
+    \-
+    = user_url(answer[:asker])
+  %p.answer= answer[:answer]
