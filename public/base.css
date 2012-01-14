@@ -28,6 +28,16 @@ a.more {
   font-size: 1.5em;
 }
 
+a {
+  color: #31354d;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
 h1 {
   margin-top: 0;
 }
@@ -76,6 +86,15 @@ blockquote {
   margin-top: 2em;
   font-weight: bold;
   margin-bottom: 1em;
+  color: #4b4a5d;
+}
+
+.question a {
+  color: #4b4a5d;
+}
+
+.question a, .answer a {
+  text-decoration: underline;
 }
 
 .answer {
@@ -86,17 +105,17 @@ blockquote {
   white-space: nowrap;
 }
 
-.intro {
-}
-
-a {
-  color: #31354d;
+.asker a {
   text-decoration: none;
 }
 
-a:hover {
+.asker a:hover {
   text-decoration: underline;
 }
+
+.intro {
+}
+
 
 .byline {
   margin-top: 0;
