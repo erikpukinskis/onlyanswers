@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'ruby-debug'
 require 'haml'
 require 'rest-client'
 require 'yajl'
@@ -39,17 +40,17 @@ get '/:key/:slug' do
   @author = meta["author"]
 
   @count = 0
-  @answers = get_answers(nil, nil, hash[1]["data"]["children"])
+  @answers = get_answers(nil, nil, nil, hash[1]["data"]["children"])
 
   haml :interview
 end
 
-def get_answers(question, asker, replies)
+def get_answers(question, question_id, asker, replies)
   return [] unless replies
   return [] if replies == ""
 
   if replies.instance_of?(Hash)
-    answers = get_answers(question, asker, replies["data"]["children"])
+    answers = get_answers(question, question_id, asker, replies["data"]["children"])
     return answers
   end
 
@@ -58,10 +59,10 @@ def get_answers(question, asker, replies)
     body = hash["data"]["body"]
     if author == @author && question
       @count += 1
-      answers << {:question => question, :asker => asker, :answer => body}
+      answers << {:question => question, :asker => asker, :answer => body, :id => question_id}
     end
 
-    answers + get_answers(body, author, hash["data"]["replies"])
+    answers + get_answers(body, hash["data"]["id"], author, hash["data"]["replies"])
   end
 end
 
@@ -70,7 +71,12 @@ def user_url(user)
 end
 
 def clean_title(title)
-  title.gsub(/I?AMA?[Ai]/i, '').strip.gsub(/^I? ?am an? /i, '').strip.gsub(/[.! ]*$/, '')
+  clean = title.gsub(/AMA?[Ai][.!, ]*$/i, '').strip.gsub(/^I? ?am ?an? /i, '').strip.gsub(/[.!, ]*$/, '')
+  clean.gsub(/^./, clean[0,1].upcase)
+end
+
+def htmlize(text)
+  text.strip.gsub(/\n/, "<p>")
 end
 
 
@@ -84,6 +90,7 @@ __END__
     :erb
       <link href='http://fonts.googleapis.com/css?family=Inika:400,700' rel='stylesheet' type='text/css'>
       <link href='http://fonts.googleapis.com/css?family=Magra' rel='stylesheet' type='text/css'>
+      <meta name="viewport" content="initial-scale = 1.0"> 
 
     %title hello!
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/base.css'}
@@ -94,7 +101,7 @@ __END__
       .sidebar
         .inner
           %p
-            %strong Only Answers
+            %strong <a href="/">Only Answers</a>
             is a readable noise-free way to read interviews from <a href="http://reddit.com">Reddit</a>'s
             <a href="http://www.reddit.com/r/iama/">IAmA</a> community.
 
@@ -110,7 +117,7 @@ __END__
 
           %p
             If you want to grow a vegetable garden, try my other site, 
-            <a href="http://sproutrobot.net">SproutRobot</a>!
+            <a href="http://sproutrobot.com">SproutRobot</a>!
 
 @@ index
 .home
@@ -129,8 +136,9 @@ __END__
   = user_url @author
 
 - @answers.each do |answer|
-  %p.question
-    = answer[:question]
-    \-
-    = user_url(answer[:asker])
-  %p.answer= answer[:answer]
+  .question
+    = htmlize answer[:question]
+    %span.asker
+      \-
+      %a{:href => "#{@url}/#{answer[:id]}"}= answer[:asker]
+  .answer= htmlize answer[:answer]

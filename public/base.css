@@ -69,6 +69,15 @@ h1 .count {
 .question {
   margin-top: 2em;
   font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.answer {
+  margin: 1em 0;
+}
+
+.asker {
+  white-space: nowrap;
 }
 
 .intro {
