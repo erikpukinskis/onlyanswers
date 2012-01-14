@@ -20,6 +20,7 @@ get '/' do
   end.map do |hash|
     data = hash["data"]
     parts = data["permalink"].split("/")
+    @last_key = parts[4]
     [parts[4], parts[5], data["title"], data["author"]]
   end
 
@@ -122,7 +123,6 @@ __END__
 @@ interview
 %h1
   %a{:href => @url}= @title
-  .count= @count
 .intro
   = CGI.unescapeHTML(@intro || "")
   \-
