@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'sinatra'
-require 'ruby-debug'
 require 'haml'
 require 'rest-client'
 require 'yajl'
@@ -9,7 +8,6 @@ require 'active_support/lazy_load_hooks'
 require 'active_support/core_ext/string'
 
 use Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'] || 'This is a secret key that no one will guess~'
-
 
 get '/' do
   url = 'http://www.reddit.com/r/IAmA.json'
