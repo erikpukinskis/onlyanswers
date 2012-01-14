@@ -73,8 +73,12 @@ def clean_title(title)
   clean.gsub(/^./, clean[0,1].upcase)
 end
 
-def htmlize(text)
-  text.strip.gsub(/\n/, "<p>")
+def htmlize(t)
+  t.strip!
+  t.gsub!(/^&gt;([^\n]*)\n/, "<blockquote>\\1</blockquote>")
+  t.gsub!(/\n/, "<p>")
+  t.gsub!(/\[(.*)\]\((.*)\)/, "<a href=\"\\2\">\\1</a>")
+  t
 end
 
 
