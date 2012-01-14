@@ -10,7 +10,19 @@ require 'active_support/core_ext/string'
 use Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'] || 'This is a secret key that no one will guess~'
 
 get '/' do
+  index
+end
+
+get '/after/:key' do
+  index params[:key]
+end
+
+def index(key=nil)
   url = 'http://www.reddit.com/r/IAmA.json'
+  url += "?count=25&after=t3_#{key}" if key
+
+  puts url
+
   json = RestClient.get url
   parser = Yajl::Parser.new
   hash = parser.parse(json)
@@ -69,7 +81,8 @@ def user_url(user)
 end
 
 def clean_title(title)
-  clean = title.gsub(/AMA?[Ai][.!, ]*$/i, '').strip.gsub(/^I? ?am ?an? /i, '').strip.gsub(/[.!, ]*$/, '')
+  punc = "[.!;, ]"
+  clean = title.gsub(/AMA?[Ai]#{punc}*$/i, '').strip.gsub(/^I? ?am ?an? /i, '').strip.gsub(/#{punc}*$/, '')
   clean.gsub(/^./, clean[0,1].upcase)
 end
 
@@ -128,6 +141,7 @@ __END__
     - @interviews.each do |key, slug, title, author|
       %li
         %a{:href => "/#{key}/#{slug}"}= clean_title title
+  %a.more{:href => "/after/#{@last_key}"} More
 
 @@ interview
 .interview
