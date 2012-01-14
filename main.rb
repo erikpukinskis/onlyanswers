@@ -6,6 +6,7 @@ require 'yajl'
 require 'cgi'
 require 'active_support/lazy_load_hooks'
 require 'active_support/core_ext/string'
+require 'sinatra/content_for'
 
 use Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'] || 'This is a secret key that no one will guess~'
 
@@ -107,7 +108,7 @@ __END__
       <link href='http://fonts.googleapis.com/css?family=Magra' rel='stylesheet' type='text/css'>
       <meta name="viewport" content="initial-scale = 1.0"> 
 
-    %title hello!
+    %title= yield_content :title
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/base.css'}
   %body
     .page
@@ -135,6 +136,8 @@ __END__
             <a href="http://sproutrobot.com">SproutRobot</a>!
 
 @@ index
+- content_for :title do
+  Only Answers
 .home
   %h1 I am a...
   %ul
@@ -144,6 +147,9 @@ __END__
   %a.more{:href => "/after/#{@last_key}"} More
 
 @@ interview
+- content_for :title do
+  = @title
+  \- Only Answers
 .interview
   %h1
     %a{:href => @url}= @title
