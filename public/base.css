@@ -28,6 +28,19 @@ h1 {
   margin-top: 0;
 }
 
+h1 .count {
+  display: inline-block;
+  background-color: #8e95b4;
+  color: #dee6ff;
+  height: 16px;
+  min-width: 16px;
+  font-size: 16px;
+  line-height: 14px;
+  padding: 7px;
+  border-radius: 15px;
+  vertical-align: 6px;
+}
+
 .content {
   float: left;
   max-width: 600px;

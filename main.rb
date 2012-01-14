@@ -27,8 +27,8 @@ get '/' do
 end
 
 get '/:key/:slug' do
-  @url = "http://www.reddit.com/r/IAmA/comments/#{params[:key]}/#{params[:slug]}.json"
-  json = RestClient.get @url
+  @url = "http://www.reddit.com/r/IAmA/comments/#{params[:key]}/#{params[:slug]}"
+  json = RestClient.get @url + ".json"
   parser = Yajl::Parser.new
   hash = parser.parse(json)
 
@@ -37,6 +37,7 @@ get '/:key/:slug' do
   @title = meta["title"]
   @author = meta["author"]
 
+  @count = 0
   @answers = get_answers(nil, nil, hash[1]["data"]["children"])
 
   haml :interview
@@ -55,6 +56,7 @@ def get_answers(question, asker, replies)
     author = hash["data"]["author"]
     body = hash["data"]["body"]
     if author == @author && question
+      @count += 1
       answers << {:question => question, :asker => asker, :answer => body}
     end
 
@@ -96,12 +98,12 @@ __END__
             <a href="http://www.reddit.com/r/iama/">IAmA</a> community.
 
           %p
-            For questions, comments, and DMCA takedown requests email 
+            Send bug reports, adulation, and DMCA takedown requests to 
             <a href="mailto:onlytheanswers@gmail.com">onlytheanswers@gmail.com</a>.
           
           %p
-            <a href="http://snowedin.net">Erik</a> built Only Answers and provides it 
-            ad-free! If you would like to help pay for its hosting, please
+            <a href="http://snowedin.net">Erik</a> built Only Answers and pays the $30/month hosting 
+            bills. Please
             consider <a href="https://www.wepay.com/x1j7o9d">donating a few dollars</a>!
 
 
@@ -120,6 +122,7 @@ __END__
 @@ interview
 %h1
   %a{:href => @url}= @title
+  .count= @count
 .intro
   = CGI.unescapeHTML(@intro || "")
   \-
