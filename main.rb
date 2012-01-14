@@ -126,17 +126,18 @@ __END__
         %a{:href => "/#{key}/#{slug}"}= clean_title title
 
 @@ interview
-%h1
-  %a{:href => @url}= @title
-.intro
-  = CGI.unescapeHTML(@intro || "")
-  \-
-  = user_url @author
+.interview
+  %h1
+    %a{:href => @url}= @title
+  .intro
+    = CGI.unescapeHTML(@intro || "")
+    \-
+    = user_url @author
 
-- @answers.each do |answer|
-  .question
-    = htmlize answer[:question]
-    %span.asker
-      \-
-      %a{:href => "#{@url}/#{answer[:id]}"}= answer[:asker]
-  .answer= htmlize answer[:answer]
+  - @answers.each do |answer|
+    .question
+      = htmlize answer[:question]
+      %span.asker
+        \-
+        %a{:href => "#{@url}/#{answer[:id]}"}= answer[:asker]
+    .answer= htmlize answer[:answer]

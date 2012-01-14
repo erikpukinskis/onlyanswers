@@ -60,8 +60,6 @@ h1 .count {
   color: #c0c7dc;
 }
 
-
-
 .home li {
   margin-bottom: 1.3em;
 }
@@ -110,3 +108,19 @@ h1 a:hover {
 .sidebar a {
   text-decoration: underline;
 }
+
+@media screen and (max-width: 600px) {
+  .inner {
+    padding: 0 15px 15px 30px;
+  }
+
+  .sidebar {
+    margin-top: 2em;
+    width: auto;
+  }
+
+  .interview h1 {
+    font-size: 1.4em;
+  }
+}
+
