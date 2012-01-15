@@ -63,14 +63,6 @@ h1 .count {
   margin-bottom: 1.3em;
 }
 
-blockquote {
-  color: #8e95b4;
-  border-left: 2px solid #c0c7dc;
-  padding-left: 10px;
-  margin: 0;
-}
-
-
 .question {
   margin-top: 2em;
   font-weight: bold;
@@ -88,6 +80,16 @@ blockquote {
 
 .answer {
   margin: 1em 0;
+}
+
+blockquote {
+  border-left: 2px solid #c0c7dc;  
+  padding-left: 10px;
+  margin: 0;
+}
+
+.question blockquote {
+  border-left: 2px solid #6e6d8c;
 }
 
 .asker {
