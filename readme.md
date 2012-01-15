@@ -11,13 +11,13 @@ If you want to host your own version of Only Answers, you will need to:
         cd answers_spinoff
         bundle install
 
-4. Run it on your local machine:
+4. Run it on your computer:
 
         shotgun main.rb
 
-   and visit [http://localhost:9393](http://localhost:9393) to see it running.
+5. Visit [http://localhost:9393](http://localhost:9393) to see it working.
 
-5. Deploy to Heroku:
+6. Deploy to Heroku:
 
         heroku create
         git push heroku master
