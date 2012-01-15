@@ -122,18 +122,18 @@ __END__
             <a href="http://www.reddit.com/r/iama/">IAmA</a> community.
 
           %p
-            Send bug reports, adulation, and DMCA takedown requests to 
-            <a href="mailto:onlytheanswers@gmail.com">onlytheanswers@gmail.com</a>.
-          
-          %p
-            <a href="http://snowedin.net">Erik</a> built Only Answers and pays the $30/month hosting 
-            bills. Please
-            consider <a href="https://www.wepay.com/x1j7o9d">donating a few dollars</a>!
-
+            <a href="https://www.wepay.com/x1j7o9d">Donate</a>
+            |
+            <a href="mailto:onlytheanswers@gmail.com">Contact</a>
+            | 
+            <a href="https://github.com/erikpukinskis/onlyanswers">Source Code</a>
 
           %p
             If you want to grow a vegetable garden, try my other site, 
             <a href="http://sproutrobot.com">SproutRobot</a>!
+
+          %p
+            Made by <a href="http://snowedin.net">Erik</a>
 
 @@ index
 - content_for :title do
