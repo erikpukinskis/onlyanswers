@@ -13,17 +13,6 @@ body {
   max-width: 900px;
 }
 
-.sidebar {
-  margin-top: 7em;
-  width: 300px;
-  float: left;
-  color: #8e95b4;
-}
-
-.sidebar a {
-  color: #8e95b4;
-}
-
 a.more {
   font-size: 1.5em;
 }
@@ -132,8 +121,24 @@ h1 a:hover {
   text-decoration: underline;
 }
 
+.sidebar {
+  margin-top: 7em;
+  width: 300px;
+  float: left;
+  color: #8e95b4;
+}
+
 .sidebar a {
+  color: #8e95b4;
   text-decoration: underline;
+}
+
+
+.code {
+  padding: 1px 3px;
+  border-radius: 2px;
+  background-color: #dee6ff;
+  font-style: italic;
 }
 
 @media screen and (max-width: 600px) {

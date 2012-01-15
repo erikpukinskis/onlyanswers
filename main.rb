@@ -129,11 +129,13 @@ __END__
             <a href="https://github.com/erikpukinskis/onlyanswers">Source Code</a>
 
           %p
-            If you want to grow a vegetable garden, try my other site, 
-            <a href="http://sproutrobot.com">SproutRobot</a>!
+            Made by <a href="http://snowedin.net">Erik Pukinskis</a>.
 
           %p
-            Made by <a href="http://snowedin.net">Erik</a>
+            If you want to grow a vegetable garden, try my other site, 
+            <a href="http://sproutrobot.com">SproutRobot</a>! Enter the code
+            %span.code IAMAredditor
+            for 10% off!
 
 @@ index
 - content_for :title do
